@@ -29,6 +29,16 @@ class Wing(AircraftComponent):
     def __str__(self):
         return f"{self.length}m {self.material} wings"
 
+class Aircraft:
+    def __init__(self, components):
+        self.engines = [c for c in components if isinstance(c, Engine)]
+        self.wings = [c for c in components if isinstance(c, Wing)]
+    
+    def describe(self):
+        print("Aircraft components:")
+        print(f"Engines: {', '.join(str(e) for e in self.engines)}")
+        print(f"Wings: {self.wings[0] if self.wings else 'None'}")
+
 # Singleton
 class ComponentManager:
     _instance = None
@@ -88,15 +98,9 @@ class AircraftBuilder:
     def build(self):
         return Aircraft(self.components)
 
-class Aircraft:
-    def __init__(self, components):
-        self.engines = [c for c in components if isinstance(c, Engine)]
-        self.wings = [c for c in components if isinstance(c, Wing)]
-    
-    def describe(self):
-        print("Aircraft components:")
-        print(f"Engines: {', '.join(str(e) for e in self.engines)}")
-        print(f"Wings: {self.wings[0] if self.wings else 'None'}")
+
+b = AircraftBuilder(CargoPlaneFactory())
+b.build()
 
 # Factory Method
 class AircraftDirector:
