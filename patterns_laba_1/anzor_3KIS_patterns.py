@@ -98,7 +98,7 @@ class AircraftBuilder:
     def build(self):
         return Aircraft(self.components)
 
-
+# Check
 b = AircraftBuilder(CargoPlaneFactory())
 b.build()
 
